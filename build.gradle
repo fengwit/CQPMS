@@ -1,0 +1,71 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    // Gradle脚本自身需要使用的资源, 包括依赖项、第三方插件、maven仓库地址等
+    repositories {
+        // 如果本地Gradle目录中没有依赖(jar包)，则从url对应的maven仓库获取，下面是阿里的maven仓库，速度快
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        // Gradle官方默认仓库，JCenter相比mavenCenter依赖更多，性能也更好
+        jcenter()
+        // 如果都没有，则从maven的官方仓库获取，某些依赖只有此处有
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.cqpms'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+// 项目自身需要的资源, 包括依赖项、仓库地址等
+repositories {
+    // 如果本地Gradle目录中没有依赖(jar包)，则从url对应的maven仓库获取，下面是阿里的maven仓库，速度快
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    // Gradle官方默认仓库，JCenter相比mavenCenter依赖更多，性能也更好
+    jcenter()
+    // 如果都没有，则从maven的官方仓库获取，某些依赖只有此处有
+    mavenCentral()
+}
+
+
+dependencies {
+    // compile('org.springframework.boot:spring-boot-starter-aop')
+    // compile('org.springframework.boot:spring-boot-starter-cache')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    // compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    // compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    // 替换springboot 1.5.x默认的thymeleaf 2 升级为3.0.9，提高效率,且不需要标签闭合等
+    compile('org.thymeleaf:thymeleaf:3.0.9.RELEASE')
+    compile('org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE')
+    // thymeleaf的fragment的layout，根据实际情况使用
+    // compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.2.2')
+
+    // Oracle数据库驱动
+    compile group: 'com.github.noraui', name: 'ojdbc7', version: '12.1.0.2'
+    // 阿里数据库连接池druid
+    // compile('com.alibaba:druid-spring-boot-starter:1.1.5')
+
+    // Apache commons 组件
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+
+
+
+    runtime('org.springframework.boot:spring-boot-devtools')
+    compileOnly('org.projectlombok:lombok:1.16.18')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
+}

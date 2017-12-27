@@ -1,0 +1,55 @@
+spring:
+################### mysql配置 start ##############################
+
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/springboot
+#    username: root
+#    password: 123456
+#  jpa:
+#    database: mysql
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+       # 使用ImprovedNamingStrategy 命名策略时， 表名、字段为小写，
+       # 当有大写字母的时候会转换为分隔符号“_”，如 实体DemoInfo，对应自动生成的表名：demo_info
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#      dialect: org.hibernate.dialect.MySQL5Dialect
+
+################### mysql配置 end ################################
+
+################### Oracle配置 start ##############################
+  datasource:
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.3.74.1:1521:cqpms
+    username: root
+    password: 123456
+  jpa:
+    database: oracle
+    show-sql: true  # 仅用于开发环境便于调试，生产环境下为false提高性能
+    hibernate:
+      ddl-auto: update
+      # 使用ImprovedNamingStrategy 命名策略时， 表名、字段为小写，
+      # 当有大写字母的时候会转换为分隔符号“_”，如 实体DemoInfo，对应自动生成的表名：demo_info
+      naming:  ????
+        implicit-strategy: org.hibernate. ????
+    properties:
+      hibernate:
+      # 配置 Oracle12c 方言
+      dialect: org.hibernate.dialect.Oracle12cDialect
+
+################### Oracle配置 end ################################
+
+  thymeleaf:
+    cache: false # 仅用于开发环境便于调试，生产环境下应为ture提高性能
+    mode: HTML # 若无此项配置，控制台将会有warn日志
+
+logging:
+  level:
+    com.cqpms: DEBUG
+    # org.springframework.security: DEBUG
+
+# Actuator配置
+# management:
+#  security:
+#    enabled: false #解决401无授权错误，关闭认证可以公开访问；请用于开发环境，不适用于生产环境
